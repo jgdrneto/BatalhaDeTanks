@@ -5,10 +5,10 @@
 
 #include "GPIO.cpp"
 
-using namespace std;
-
 #define ANGULO_MIN 18
 #define ANGULO_MAX 82
+
+using namespace std;
 
 class Joystick{
     private:
@@ -20,6 +20,12 @@ class Joystick{
     	    GPIO::setup(PORTNUMBER::P9_39);			        //Porta analógica do potenciômetro
     	    GPIO::setup(PORTNUMBER::P9_40);			        //Porta analógica do fotosensor	
     	    GPIO::setup(PORTNUMBER::P9_14,DIRECTION::IN); 	//Porta digital do botão
+        }
+        
+        void limpaTela(){
+            if(system("clear")){
+                system("cls");
+            }  
         }
         
         int valorBotao(){

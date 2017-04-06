@@ -18,11 +18,15 @@ int opcoes(){
   int i=-1;
 
   do{
-    cout << "Guerra" << endl; 
+    
+    Utilidades::limpaTela();
+    
+    cout << "BATALHA DE TANKS" << endl; 
     cout << "1 - Novo Jogo" << endl;
     cout << "2 - Sair" << endl;  
     cout << "--> ";
     cin >> i;
+  
   }while(i<MIN_OPCAO && i>MAX_OPCAO);
 
   return i;

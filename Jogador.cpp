@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Joystick.cpp"
+#include "Utilidades.cpp"
 
 using namespace std;
 
@@ -103,8 +104,24 @@ class Jogador{
      */  
     void atacar(Jogador& jAdversario){
       
-      cout << "Construir valores
-      " << endl;
+      int i=0;
+      
+      while(j.valorBotao()==VALUE::LOW){
+      
+        Utilidades::limpaTela();
+      
+        cout << "Escolha o ângulo: ";
+        i = j.escolherAngulo();
+        cout << i << endl;
+      }
+      
+      //Adicioanando valor aos locais que ele não pode mais ir
+      jAdversario.getAtingido().push_back(i);
+      
+      //Verificar se o ataque acertou o advsário
+      if(i==jAdversario.getPosicao()){
+        jAdversario.estado = ESTADO::MORTO;
+      }
       
     }
     

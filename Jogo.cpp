@@ -9,6 +9,12 @@
 
 #include "Jogador.cpp"
 
+void limpaTela(){
+    if(system("clear")){
+        system("cls");
+    }  
+}
+
 using namespace std;
 
 enum ACAO{
@@ -32,6 +38,8 @@ class Jogo{
          */
         string definirNome(int i){
             string nome;
+            
+            Utilidades::limpaTela();
             
             cout << "Qual o nome do jogador " << i << " : ";
             cin >> nome;
@@ -74,6 +82,9 @@ class Jogo{
             int i=-1;
 
             do{
+                
+                Utilidades::limpaTela();
+                
                 cout << "O que deseja fazer: " << endl; 
                 cout << "1 - Atacar" << endl;
                 cout << "2 - Se mover" << endl;  
