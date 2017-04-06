@@ -85,13 +85,13 @@ class Jogo{
             
             switch(i){
                 case 1 :
-                    ac == ACAO::ATACAR;
+                    ac = ACAO::ATACAR;
                 break;
                 case 2 :
-                    ac == ACAO::MOVER;
+                    ac = ACAO::MOVER;
                 break;
                 default:
-                    ac == ACAO::MOVER;
+                    ac = ACAO::MOVER;
                 break;
             }
             
@@ -138,8 +138,8 @@ class Jogo{
          */
         void iniciar(){
             
-            Jogador* jogadorDaVez;  
-            Jogador* jogadorAdversario;
+            Jogador* jogadorDaVez = NULL;  
+            Jogador* jogadorAdversario = NULL;
             
             jogadorDaVez = &*(this->j2);
             
