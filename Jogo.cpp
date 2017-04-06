@@ -9,12 +9,6 @@
 
 #include "Jogador.cpp"
 
-void limpaTela(){
-    if(system("clear")){
-        system("cls");
-    }  
-}
-
 using namespace std;
 
 enum ACAO{
