@@ -21,6 +21,7 @@ class Jogador{
   	vector<int> atingido;
   	int posicao;
     ESTADO estado;
+    Joystick j;
     
   public:
   
@@ -87,7 +88,7 @@ class Jogador{
       
       for(int p : this->atingido){
         if(p==nPosicao){
-         return false;
+          return false;
         }
       }
       
@@ -101,7 +102,9 @@ class Jogador{
      *  @param Jogador : Posição que se deseja se mover
      */  
     void atacar(Jogador& jAdversario){
-      //Construir
+      
+      cout << "Construir valores
+      " << endl;
       
     }
     

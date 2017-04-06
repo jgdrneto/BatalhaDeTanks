@@ -13,8 +13,8 @@
 
 using namespace std;
 
-int opcoes(Joystick& j){
-
+int opcoes(){
+  
   int i=-1;
 
   do{
@@ -45,12 +45,9 @@ void jogo(){
 	quit();
 }
 
-int main()
-{
+int main(){
   
-  Joystick j;
-  
-	switch(opcoes(j)){
+	switch(opcoes()){
         case 1:
           jogo();
         break;
