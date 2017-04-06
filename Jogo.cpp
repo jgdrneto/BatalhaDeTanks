@@ -47,13 +47,13 @@ class Jogo{
          *  @return Jogador : Jogador da Vez
          *  
          */
-        Jogador& trocaDeJogador(Jogador* jogadorDaVez){
+        Jogador* trocaDeJogador(Jogador* jogadorDaVez){
                     
             //Comparando referências de jogador
             if(&*(jogadorDaVez)==&*(this->j1)){
-                return *(this->j2);
+		return &*(this->j2);
             }else{
-                return *(this->j1);
+		return &*(this->j1);
             }
         }
         
@@ -145,19 +145,20 @@ class Jogo{
          */
         void iniciar(){
             
-            Jogador* jogadorDaVez;  
+            Jogador* jogadorDaVez = NULL;  
             Jogador* jogadorAdversario = NULL;
             
             jogadorDaVez = &*(this->j2);
-            
+            jogadorAdversario = &*(this->j1);
+
             //GameLoop
             while(!terminou){
-                
                 //Troca a vez do jogador    
-                *(jogadorDaVez) = trocaDeJogador(jogadorDaVez);
-                *(jogadorAdversario) = trocaDeJogador(jogadorDaVez);
+                jogadorDaVez = trocaDeJogador(jogadorDaVez);
                 
-                ACAO acao = escolherAcao();
+		jogadorAdversario = trocaDeJogador(jogadorDaVez);
+                
+		ACAO acao = escolherAcao();
                 
                 switch(acao){
                     case ACAO::ATACAR :
