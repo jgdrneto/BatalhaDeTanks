@@ -18,8 +18,10 @@ void limpaTela(){
 using namespace std;
 
 enum ACAO{
+    
     ATACAR = 1,
     MOVER = 2,
+
 };
 
 class Jogo{

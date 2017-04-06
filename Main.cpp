@@ -15,6 +15,8 @@ using namespace std;
 
 int opcoes(){
   
+  
+  
   int i=-1;
 
   do{
