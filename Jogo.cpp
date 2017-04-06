@@ -150,7 +150,7 @@ class Jogo{
         void iniciar(){
             
             Jogador* jogadorDaVez;  
-            Jogador* jogadorAdversario = null;
+            Jogador* jogadorAdversario = NULL;
             
             jogadorDaVez = &*(this->j2);
             
