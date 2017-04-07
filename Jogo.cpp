@@ -77,34 +77,25 @@ class Jogo{
          *  @return int : Valor correspondente a ação escolhida 
          */
         ACAO escolherAcao(Jogador* jogadorDaVez){
+	    
+	    Utilidades::limpaTela();	
+	
+	    cout << jogadorDaVez->getNome() << " o que você deseja fazer: " << endl; 
+	    cout << "Cubra o fotosensor para escolher se mover" << endl;
+	    cout << "Não cubra o fotosensor para escolher atacar" << endl;
+	    cout << "Você tem 5 segundos para decidir" << endl;
+	    
+	    //Tempo para verificar o sensor
+	    usleep(5000000);
+	    
+	    ACAO ac;
+            		
+            if(jogadorDaVez->getJoystick().valorFotossensor()==VALUE::LOW){
+	    	ac = ACAO::MOVER;
+	    }else{
+	    	ac = ACAO::ATACAR;
+	    }
 
-            int i=-1;
-
-            do{
-                
-                Utilidades::limpaTela();
-                
-                cout << jogadorDaVez->getNome() << " o que você deseja fazer: " << endl; 
-                cout << "1 - Atacar" << endl;
-                cout << "2 - Se mover" << endl;  
-                cout << "--> ";
-                cin >> i;
-            }while(i<1 && i>2);
-            
-            ACAO ac;
-            
-            switch(i){
-                case 1 :
-                    ac = ACAO::ATACAR;
-                break;
-                case 2 :
-                    ac = ACAO::MOVER;
-                break;
-                default:
-                    ac = ACAO::MOVER;
-                break;
-            }
-            
             return ac;
         }
         /*  Descrição : Verifica condição de vitória

@@ -95,6 +95,10 @@ class Jogador{
       
       this->posicao = nPosicao;
       
+      Utilidades::limpaTela();	
+      
+      cout << this->nome <<" se mexeu para um novo lugar" << endl;
+  	
       return true;
     }
     
@@ -110,11 +114,24 @@ class Jogador{
       
         Utilidades::limpaTela();
       
-        cout << "Escolha o ângulo: ";
+	//Impressão das posições dos tiros ja realizados	
+	cout << "Posições já atiradas por você : { ";
+      
+      	for(unsigned int c=0;c< jAdversario.atingido.size();c++){
+	   if(c+1<jAdversario.atingido.size()){        
+	       cout << jAdversario.atingido[c] << ", "; 
+  	   }else{
+	       cout << jAdversario.atingido[c] << " ";	
+	   }    
+        }	 	
+           cout << "}" << endl;
+      
+      	cout << this->nome <<" escolha o ângulo do tiro: ";
         i = j.escolherAngulo();
         cout << i << endl;
       }
-
+	
+	
       bool jaExiste=false;	
       for(int p : jAdversario.atingido){
       	if(p==i){
@@ -126,20 +143,13 @@ class Jogador{
       if (jaExiste==false){
 	jAdversario.atingido.push_back(i);
       }      
-      cout << "Valor do vetor do advesário: " << jAdversario.atingido.size() << endl;	
-      cout << "Valor da sua posição: " << this->posicao << endl;
+   	
+      //cout << "Valor da sua posição: " << this->posicao << endl;
 	
       //Verificar se o ataque acertou o advsário
       if(i==jAdversario.posicao){
         jAdversario.estado = ESTADO::MORTO;
-      }
-      
-      cout << "Posições já atiradas : { ";
-      
-      for(int p :  jAdversario.atingido){
-        cout << p << ", "; 
-      }	 	
-      cout << "}" << endl;	
+      }	
     }
     
     /*  Descrição : Retorna o estado atual do jogador
@@ -148,6 +158,14 @@ class Jogador{
      */  
     ESTADO getEstado(){
       return this->estado;
+    }
+
+    /*  Descrição : Retorna o joystic do jogador
+     *
+     *  @return Joystick : Joystick do jogador
+     */  
+    Joystick getJoystick(){
+      return this->j;
     }
   
 };	
