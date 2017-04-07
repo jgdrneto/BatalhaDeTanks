@@ -7,7 +7,7 @@
 #include <string>
 #include <time.h>
 #include <unistd.h>
-
+#include <thread>
 #include "Jogador.cpp"
 
 using namespace std;
@@ -18,6 +18,11 @@ enum ACAO{
     MOVER = 2,
 
 };
+
+void lerFotossensor(int& valor, Jogador* jogadorDaVez){
+    valor = jogadorDaVez->getJoystick().valorFotossensor(); 
+}
+
 
 class Jogo{
     private:
@@ -87,10 +92,21 @@ class Jogo{
 	    
 	    //Tempo para verificar o sensor
 	    usleep(5000000);
+	   
+	    int i = -1;
+ 	    
+	    thread threadA (lerFotossensor,ref(i),jogadorDaVez);
 	    
+	    threadA.join();	    
+
 	    ACAO ac;
-            		
-            if(jogadorDaVez->getJoystick().valorFotossensor()==VALUE::LOW){
+            
+	    //Dorme ate receber valor aceitavel
+	    while(i==-1){
+	    	usleep(500000);
+	    }
+		
+            if(i==VALUE::LOW){
 	    	ac = ACAO::MOVER;
 	    }else{
 	    	ac = ACAO::ATACAR;

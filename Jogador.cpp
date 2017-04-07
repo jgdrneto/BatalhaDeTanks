@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <thread>
 
 #include "Joystick.cpp"
 #include "Utilidades.cpp"
@@ -13,6 +14,14 @@ enum ESTADO{
   VIVO,
   MORTO,
 };
+
+void botao(int& b, int j){
+    b = j;
+}
+
+void potenciometro(int& v, int j){
+    v = j;
+} 
 
 //Classe representativa do jogador
 class Jogador{
@@ -110,8 +119,28 @@ class Jogador{
       
       int i=0;
       
-      while(j.valorBotao()==VALUE::LOW){
+      int valorBotao = -1;	
+      int valorPotenciometro=-1;
       
+      thread tPot(potenciometro,ref(valorPotenciometro),j.escolherAngulo());	      
+      thread tBot(botao,ref(valorBotao),j.valorBotao());
+      
+      tPot.join();
+      tBot.join();
+      
+      while(valorPotenciometro==-1){
+      	usleep(100000);
+      }
+
+      while(valorBotao==-1){
+      	usleep(100000);
+      }
+      
+      thread* valorP = NULL;	
+      thread* valorB = NULL;
+ 				
+      while(valorBotao==VALUE::LOW){
+      	
         Utilidades::limpaTela();
       
 	//Impressão das posições dos tiros ja realizados	
@@ -124,15 +153,29 @@ class Jogador{
 	       cout << jAdversario.atingido[c] << " ";	
 	   }    
         }	 	
-           cout << "}" << endl;
-      
+        cout << "}" << endl;
+      	
+	valorP = new thread(potenciometro,ref(valorPotenciometro),j.escolherAngulo());
+
+	valorP->join();
+	
       	cout << this->nome <<" escolha o ângulo do tiro: ";
-        i = j.escolherAngulo();
-        cout << i << endl;
+        cout << valorPotenciometro << endl;
+	
+	if(i==valorPotenciometro){
+	    valorB = new thread(botao,ref(valorBotao),j.valorBotao());	
+	    valorB->join();		
+	}
+	
+	i=valorPotenciometro;
+
+	usleep(200000);
       }
 	
+      cout << "Botão pressionado, mudando vez para o adversário" << endl;		
 	
       bool jaExiste=false;	
+
       for(int p : jAdversario.atingido){
       	if(p==i){
 	   jaExiste=true; 	
