@@ -21,8 +21,8 @@ class Jogador{
   	string nome;
   	vector<int> atingido;
   	int posicao;
-    ESTADO estado;
-    Joystick j;
+    	ESTADO estado;
+    	Joystick j;
     
   public:
   
@@ -114,15 +114,32 @@ class Jogador{
         i = j.escolherAngulo();
         cout << i << endl;
       }
-      
+
+      bool jaExiste=false;	
+      for(int p : jAdversario.atingido){
+      	if(p==i){
+	   jaExiste=true; 	
+	}
+      }
+ 			
       //Adicioanando valor aos locais que ele não pode mais ir
-      jAdversario.getAtingido().push_back(i);
-      
+      if (jaExiste==false){
+	jAdversario.atingido.push_back(i);
+      }      
+      cout << "Valor do vetor do advesário: " << jAdversario.atingido.size() << endl;	
+      cout << "Valor da sua posição: " << this->posicao << endl;
+	
       //Verificar se o ataque acertou o advsário
-      if(i==jAdversario.getPosicao()){
+      if(i==jAdversario.posicao){
         jAdversario.estado = ESTADO::MORTO;
       }
       
+      cout << "Posições já atiradas : { ";
+      
+      for(int p :  jAdversario.atingido){
+        cout << p << ", "; 
+      }	 	
+      cout << "}" << endl;	
     }
     
     /*  Descrição : Retorna o estado atual do jogador

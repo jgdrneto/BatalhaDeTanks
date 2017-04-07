@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string>
 #include <time.h>
+#include <unistd.h>
 
 #include "Jogador.cpp"
 
@@ -71,9 +72,11 @@ class Jogo{
         
         /*  Descrição : Verifica a ação escolhida do usuário
          *
+	 *  @param Jogador* : Ponteiro do jogador atual 
+	 * 	
          *  @return int : Valor correspondente a ação escolhida 
          */
-        ACAO escolherAcao(){
+        ACAO escolherAcao(Jogador* jogadorDaVez){
 
             int i=-1;
 
@@ -81,7 +84,7 @@ class Jogo{
                 
                 Utilidades::limpaTela();
                 
-                cout << "O que deseja fazer: " << endl; 
+                cout << jogadorDaVez->getNome() << " o que você deseja fazer: " << endl; 
                 cout << "1 - Atacar" << endl;
                 cout << "2 - Se mover" << endl;  
                 cout << "--> ";
@@ -134,7 +137,7 @@ class Jogo{
             int pJ2 = novaPosicao();
                 
             j1 = new Jogador(nomeJ1, pJ1);
-            j1 = new Jogador(nomeJ2,pJ2); 
+            j2 = new Jogador(nomeJ2,pJ2); 
             
             //Condição de término do jogo
             terminou=false;
@@ -157,8 +160,8 @@ class Jogo{
                 jogadorDaVez = trocaDeJogador(jogadorDaVez);
                 
 		jogadorAdversario = trocaDeJogador(jogadorDaVez);
-                
-		ACAO acao = escolherAcao();
+                		
+		ACAO acao = escolherAcao(jogadorDaVez);
                 
                 switch(acao){
                     case ACAO::ATACAR :
@@ -177,12 +180,15 @@ class Jogo{
                     break;
                 }
                 
+		//Tempo entre interações
+		usleep(5000000);
+
                 //Verifica condição de vitória 
                 terminou = verificarVitoria(*(jogadorAdversario));
                         
             }
             
-            cout << "Parabêns " << jogadorDaVez->getNome() << "pela vitória" << endl;
+            cout << "Parabêns " << jogadorDaVez->getNome() << " pela vitória" << endl;
             
         }
         

@@ -22,28 +22,23 @@ class Joystick{
     	    GPIO::setup(PORTNUMBER::P9_14,DIRECTION::IN); 	//Porta digital do botão
         }
         
-        void limpaTela(){
-            if(system("clear")){
-                system("cls");
-            }  
-        }
-        
         int valorBotao(){
             return GPIO::input(PORTNUMBER::P9_14);
         }
         
         int valorFotossensor(){
-            if(GPIO::input(PORTNUMBER::P9_14)==0){
+            if(GPIO::input(PORTNUMBER::P9_40)==0){
 	    	    return VALUE::LOW;	
-	        }else{
+	    }else{
 	    	    return VALUE::HIGH;
-	        }
+	    }
         }
         
         int escolherAngulo(){
-            int intervalo = 2048/(ANGULO_MAX - ANGULO_MIN);
 
-	        return (GPIO::input(PORTNUMBER::P9_14)/intervalo) + ANGULO_MIN; 
+	    int intervalo = 4096/(ANGULO_MAX - ANGULO_MIN);
+
+	    return ((GPIO::input(PORTNUMBER::P9_39)+2)/intervalo) + ANGULO_MIN; 
         }
         
 };
